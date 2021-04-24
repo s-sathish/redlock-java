@@ -16,7 +16,7 @@ public class RedLock {
     private static final Logger log = LoggerFactory.getLogger(RedLock.class);
 
     private final String[] servers;
-    private List<Jedis> instances = new ArrayList<>();
+    private final List<Jedis> instances = new ArrayList<>();
 
     private final String redLockReleaseLuaScript = "if redis.call(\"get\",KEYS[1]) == ARGV[1] then " +
             "return redis.call(\"del\",KEYS[1]) " +
@@ -29,7 +29,7 @@ public class RedLock {
     private final double clockDriftFactor = 0.01;
 
     private final int retryDelay = 200;
-    private int retryCount = 3;
+    private final int retryCount = 3;
 
     public RedLock() {
         this("127.0.0.1");
@@ -94,20 +94,18 @@ public class RedLock {
      * @return LockResult containing resource, value, validityTime if lock is acquired successfully or else null
      */
     public LockResult lock(String resource, int ttl) {
-        String value = getRandomUUID().toString();
-        return lock0(resource, value, ttl);
+        return lock0(resource, ttl);
     }
 
-    private synchronized UUID getRandomUUID() {
-        return UUID.randomUUID();
-    }
-
-    private synchronized LockResult lock0(String resource, String value, int ttl) {
+    private synchronized LockResult lock0(String resource, int ttl) {
         init();
         if (instances.size() == 0) {
             log.error("RedLock - Error. Jedis / JedisCluster client not initialized");
             return null;
         }
+
+        String value = getRandomUUID().toString();
+        int retry = this.retryCount;
 
         do {
             int n = 0;
@@ -137,10 +135,14 @@ public class RedLock {
                 log.warn("RedLock - Warning. Sleep of {} ms interrupted in between", randomDelay);
             }
 
-            retryCount--;
-        } while (retryCount > 0);
+            retry--;
+        } while (retry > 0);
 
         return null;
+    }
+
+    private synchronized UUID getRandomUUID() {
+        return UUID.randomUUID();
     }
 
     /**
