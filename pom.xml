@@ -4,10 +4,20 @@
 
     <groupId>io.github.s-sathish</groupId>
     <artifactId>redlock-java</artifactId>
-    <version>1.0</version>
+    <version>1.0.1</version>
     <name>RedLock-Java</name>
     <description>RedLock in Java</description>
     <url>https://github.com/s-sathish/redlock-java</url>
+
+    <mailingLists>
+        <mailingList>
+            <name>RedLock Java Mailing List</name>
+            <post>redlock-java@googlegroups.com</post>
+            <archive>
+                http://groups.google.com/g/redlock-java
+            </archive>
+        </mailingList>
+    </mailingLists>
 
     <developers>
         <developer>
@@ -25,11 +35,16 @@
         </license>
     </licenses>
 
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/s-sathish/redlock-java/issues</url>
+    </issueManagement>
+
     <scm>
         <connection>scm:git:git@github.com:s-sathish/redlock-java.git</connection>
         <url>scm:git:git@github.com:s-sathish/redlock-java.git</url>
         <developerConnection>scm:git:git@github.com:s-sathish/redlock-java.git</developerConnection>
-        <tag>redlock-java-1.0</tag>
+        <tag>redlock-java-1.0.1</tag>
   </scm>
 
     <properties>
@@ -66,11 +81,11 @@
     <distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
         <repository>
             <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
 
@@ -135,7 +150,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <serverId>ossrh</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
                     <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
             </plugin>
@@ -166,6 +181,26 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                        <configuration>
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
@@ -185,6 +220,12 @@
                                 <goals>
                                     <goal>sign</goal>
                                 </goals>
+                                <configuration>
+                                    <gpgArguments>
+                                        <arg>--pinentry-mode</arg>
+                                        <arg>loopback</arg>
+                                    </gpgArguments>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
