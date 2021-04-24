@@ -4,7 +4,7 @@
 
     <groupId>io.github.s-sathish</groupId>
     <artifactId>redlock-java</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <name>RedLock-Java</name>
     <description>RedLock in Java</description>
     <url>https://github.com/s-sathish/redlock-java</url>
@@ -44,7 +44,7 @@
         <connection>scm:git:git@github.com:s-sathish/redlock-java.git</connection>
         <url>scm:git:git@github.com:s-sathish/redlock-java.git</url>
         <developerConnection>scm:git:git@github.com:s-sathish/redlock-java.git</developerConnection>
-        <tag>redlock-java-1.0.2</tag>
+        <tag>redlock-java-1.0.3</tag>
   </scm>
 
     <properties>

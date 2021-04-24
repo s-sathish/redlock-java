@@ -11,7 +11,7 @@ Include the dependency into your project:
 <dependency>
   <groupId>io.github.s-sathish</groupId>
   <artifactId>redlock-java</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.3</version>
 </dependency>
 ```
 
