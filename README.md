@@ -11,7 +11,7 @@ Include the dependency into your project:
 <dependency>
   <groupId>io.github.s-sathish</groupId>
   <artifactId>redlock-java</artifactId>
-  <version>1.0.3</version>
+  <version>1.0.4</version>
 </dependency>
 ```
 
@@ -24,11 +24,11 @@ RedLock redLock = new RedLock();
 To acquire a lock:
 
 ```java
-String lockResult = redLock.lock("redlock");
+LockResult lockResult = redLock.lock("redlock");
 ```
 
 To release a lock:
 
 ```java
-List<Object> releaseLockResult = redLock.release("redlock", lockResult);
+redLock.release("redlock", lockResult.getValue());
 ```
